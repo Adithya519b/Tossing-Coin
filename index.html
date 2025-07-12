@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toss Coin</title>
+    <style>
+        body{
+            background-color: rgba(191, 190, 190, 0.768);
+            text-align: center;
+        }
+        @keyframes flip{
+            from{
+                transform: rotateX(0deg);
+                scale:1;
+            }
+            to{
+                transform: rotateX(640deg);
+                scale: 1.2;
+            }
+        }
+        .container{
+            background-color: white;
+            width: 400px;
+            margin: auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .container img{
+            width: 60%;
+            border-radius: 50%;
+            
+        }
+        .active{
+            animation: flip ease;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+        }
+        #toss{
+            background-color: rgba(250, 3, 147, 0.852);
+            padding: 5px;
+            width: 70px;
+            color: white;
+            font-size: 15px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px skyblue;
+            border:none;
+        }
+        #toss:active{
+            transform: scale(0.9);
+            transition: all linear 400ms;
+        }
+        @media screen and (max-width:500px){
+            .container{
+                width: 90%;
+
+            }
+            
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Online Coin Tossing</h1>
+    <div class="container">
+        <img  alt="" id="image">
+        <h3 id="result">Heads</h3>
+        <button id="toss">Toss</button>
+    </div>
+    <script>
+        let image=document.getElementById('image')
+        image.setAttribute("src","heads.jpg");
+        let sound=new Audio("flipsound.mp3")
+        document.getElementById('toss').addEventListener("click",(e)=>{
+            image.classList.add('active');
+            let choice=Math.ceil(Math.random()*2);
+            sound.play();
+            if(choice==1){
+                
+                setTimeout(()=>{image.setAttribute("src","heads.jpg");
+                    document.getElementById('result').textContent="Heads";
+                },2000)
+            }
+            else if(choice==2){
+                
+                setTimeout(()=>{image.setAttribute("src","tails.jpg");
+                    document.getElementById('result').textContent="Tails";
+                },2000)
+            }
+            console.log(choice);
+            setTimeout(()=>image.classList.remove('active'),2000);
+        })
+    </script>
+</body>
+</html>
